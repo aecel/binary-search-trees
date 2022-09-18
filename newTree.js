@@ -75,9 +75,19 @@ const newTree = () => {
       }
 
       if (currentNode.data > value) {
-        currentNode = currentNode.left
+        if (currentNode.left) {
+          currentNode = currentNode.left
+        } else {
+          currentNode.left = newNode({ data: value })
+          return null
+        }
       } else if (currentNode.data < value) {
-        currentNode = currentNode.right
+        if (currentNode.right) {
+          currentNode = currentNode.right
+        } else {
+          currentNode.right = newNode({ data: value })
+          return null
+        }
       }
     }
 
@@ -124,15 +134,9 @@ const newTree = () => {
 
   const levelOrder = (func) => {
     let q = [root]
-    let levelArray = []
-    let level = 0
-    let childrenArray = []
-    let children = 0
-    let counter = 0
     let dataArray = []
 
     while (q.length != 0) {
-      children = 0
       const currentNode = q[0]
 
       if (func) {
@@ -141,20 +145,15 @@ const newTree = () => {
       dataArray.push(currentNode.data)
 
       if (currentNode.left != null) {
-        children++
         q.push(currentNode.left)
       }
       if (currentNode.right != null) {
-        children++
         q.push(currentNode.right)
       }
 
-      childrenArray.push(children)
       q.shift()
     }
 
-    console.log(childrenArray)
-    console.log(levelArray)
     return dataArray
   }
 
@@ -253,13 +252,18 @@ const newTree = () => {
     }
 
     inorder(heightDiff)
-    
+
     for (const num of diffArray) {
       if (num > 1) {
         return false
       }
     }
     return true
+  }
+
+  const rebalance = () => {
+    const numArray = inorder()
+    return buildTree(numArray)
   }
 
   return {
@@ -275,6 +279,7 @@ const newTree = () => {
     height,
     depth,
     isBalanced,
+    rebalance,
   }
 }
 

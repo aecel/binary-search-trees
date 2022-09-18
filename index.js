@@ -15,19 +15,26 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 const myTree = newTree()
 
-const testArray = [
-  40, 100, 1, 5, 25, 10, 40, 100, 1, 5, 25, 10, 10, 10, 11, 12, 9, 46,
-]
+// randomly generated N = 10 length array 0 <= A[N] <= 99
+const testArray = Array.from({length: 10}, () => Math.floor(Math.random() * 100))
 const testNode = myTree.buildTree(testArray)
 
 prettyPrint(testNode)
-
-
-// let myArray = []
-// const myFunc = (node) => {
-//   myArray.push(myTree.depth(node.data))
-// }
-
-// console.log(myTree.inorder(myFunc))
-// console.log(myArray)
 console.log(myTree.isBalanced())
+console.log(myTree.levelOrder())
+console.log(myTree.preorder())
+console.log(myTree.inorder())
+console.log(myTree.postorder())
+myTree.insert(101)
+myTree.insert(102)
+myTree.insert(103)
+myTree.insert(104)
+prettyPrint(testNode)
+console.log(myTree.isBalanced())
+const newNode = myTree.rebalance()
+prettyPrint(newNode)
+console.log(myTree.isBalanced())
+console.log(myTree.levelOrder())
+console.log(myTree.preorder())
+console.log(myTree.inorder())
+console.log(myTree.postorder())
